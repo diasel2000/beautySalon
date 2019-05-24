@@ -7,7 +7,7 @@ public class Klient {
     private String firstName;
     private String lastName;
     private Short age;
-    private Character gander;
+    private String gander;
 
 
     public Long getId() {
@@ -42,11 +42,11 @@ public class Klient {
         this.age = age;
     }
 
-    public Character getGander() {
+    public String getGander() {
         return gander;
     }
 
-    public void setGander(Character gander) {
+    public void setGander(String gander) {
         this.gander = gander;
     }
 

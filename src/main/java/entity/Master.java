@@ -6,7 +6,7 @@ public class Master {
     private Long id;
     private String firstName;
     private String lastName;
-    private Integer phneNumber;
+    private Integer phoneNumber;
 
 
     public Long getId() {
@@ -33,12 +33,12 @@ public class Master {
         this.lastName = lastName;
     }
 
-    public Integer getPhneNumber() {
-        return phneNumber;
+    public Integer getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhneNumber(Integer phneNumber) {
-        this.phneNumber = phneNumber;
+    public void setPhoneNumber(Integer phneNumber) {
+        this.phoneNumber = phneNumber;
     }
 
 
@@ -50,13 +50,13 @@ public class Master {
         return Objects.equals ( id, master.id ) &&
                 Objects.equals ( firstName, master.firstName ) &&
                 Objects.equals ( lastName, master.lastName ) &&
-                Objects.equals ( phneNumber, master.phneNumber );
+                Objects.equals ( phoneNumber, master.phoneNumber );
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash ( id, firstName, lastName, phneNumber);
+        return Objects.hash ( id, firstName, lastName, phoneNumber);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class Master {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", phneNumber=" + phneNumber +
+                ", phneNumber=" + phoneNumber +
                 '}';
     }
 }
