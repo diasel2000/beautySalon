@@ -1,4 +1,4 @@
-package main.java.service;
+package service;
 
 import db.DataBaseConection;
 import main.java.dao.MasterDAO;
@@ -19,7 +19,7 @@ public class MasterService extends DataBaseConection implements MasterDAO {
     public void add(Master master) throws SQLException {
         PreparedStatement preparedStatement = null;
 
-        String sql = "INSERT INTO beauty_salon.master (id_master, first_name, last_name, phone_number) VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO master (id_master, first_name, last_name, phone_number) VALUES (?, ?, ?, ?);";
         try {
             preparedStatement = connection.prepareStatement ( sql );
             preparedStatement.setLong ( 1, master.getId () );
@@ -29,13 +29,6 @@ public class MasterService extends DataBaseConection implements MasterDAO {
 
         } catch (SQLException e) {
             e.printStackTrace ();
-        } finally {
-            if (preparedStatement != null) {
-                preparedStatement.close ();
-            }
-            if (connection != null) {
-                connection.close ();
-            }
         }
     }
 
@@ -43,7 +36,7 @@ public class MasterService extends DataBaseConection implements MasterDAO {
     public List<Master> getAll() throws SQLException {
         List<Master> mastersList = new ArrayList<> ();
 
-        String sql = "SELECT * FROM beauty_salon.master;";
+        String sql = "SELECT * FROM master;";
         Statement statement = null;
         try {
             statement = connection.createStatement ();
@@ -72,7 +65,7 @@ public class MasterService extends DataBaseConection implements MasterDAO {
     public Master getAllById(Long id) throws SQLException {
         PreparedStatement preparedStatement = null;
 
-        String sql = "SELECT * FROM beauty_salon.master WHERE id_master;";
+        String sql = "SELECT * FROM master WHERE id_master;";
 
         Master master = new Master ();
         try {
@@ -101,7 +94,7 @@ public class MasterService extends DataBaseConection implements MasterDAO {
     public void update(Master master) throws SQLException {
         PreparedStatement preparedStatement =null;
 
-        String sql ="UPDATE beauty_salon.master SET id_master = ?, first_name = ?, last_name = ?, phone_number = ? WHERE (id_master = ?);";
+        String sql ="UPDATE master SET id_master = ?, first_name = ?, last_name = ?, phone_number = ? WHERE (id_master = ?);";
         try {
             preparedStatement =connection.prepareStatement ( sql );
             preparedStatement.setLong ( 1, master.getId () );
@@ -110,21 +103,14 @@ public class MasterService extends DataBaseConection implements MasterDAO {
             preparedStatement.setInt ( 4, master.getPhoneNumber () );
 
         }catch (SQLException e){e.printStackTrace ();}
-        finally {
-            if(preparedStatement !=null){
-                preparedStatement.close ();
-            }
-            if (connection != null){
-                connection.close ();
-            }
-        }
+
     }
 
     @Override
     public void remove(Master master) throws SQLException {
         PreparedStatement preparedStatement = null;
 
-        String sql ="DELETE * FROM beauty_salon.master WHERE id_master;";
+        String sql ="DELETE * FROM master WHERE id_master;";
 
         try {
             preparedStatement = connection.prepareStatement ( sql );
@@ -134,11 +120,6 @@ public class MasterService extends DataBaseConection implements MasterDAO {
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
             e.printStackTrace ();
-        } if (preparedStatement !=null){
-            preparedStatement.close ();
-        }
-        if (connection != null){
-            connection.close ();
         }
     }
 }

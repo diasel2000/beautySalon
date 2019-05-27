@@ -8,13 +8,14 @@
 
     <servlet>
         <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>main.java.controller.HelloServlet</servlet-class>
+        <servlet-class>controller.HelloServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/servlet</url-pattern>
     </servlet-mapping>
+
+
 
 
 </web-app>

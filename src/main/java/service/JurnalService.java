@@ -1,4 +1,4 @@
-package main.java.service;
+package service;
 
 import db.DataBaseConection;
 import main.java.dao.JurnalDAO;
@@ -10,13 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JurnalService extends DataBaseConection implements JurnalDAO {
-
     Connection connection = getConnection ();
     @Override
     public void add(Jurnal jurnal) throws SQLException {
         PreparedStatement preparedStatement =null;
 
-        String sql ="INSERT INTO beauty_salon.jurnal (idjurnal, data, compleat, id_klient, id_master, id_product) VALUES (?, ?, ?, ?, ?, ?);";
+        String sql ="INSERT INTO jurnal (idjurnal, data, compleat, id_klient, id_master, id_product) VALUES (?, ?, ?, ?, ?, ?);";
         try {
             preparedStatement =connection.prepareStatement ( sql );
             preparedStatement.setLong ( 1,jurnal.getId ());
@@ -26,21 +25,13 @@ public class JurnalService extends DataBaseConection implements JurnalDAO {
             preparedStatement.setLong ( 5,jurnal.getMasterId ());
             preparedStatement.setLong ( 6,jurnal.getProductId ());
         }catch (SQLException e){e.printStackTrace ();}
-         finally {
-            if(preparedStatement !=null){
-                preparedStatement.close ();
-            }
-            if (connection != null){
-                connection.close ();
-            }
-        }
     }
 
     @Override
     public List<Jurnal> getAll() throws SQLException {
         List<Jurnal> jurnalList = new ArrayList<> (  );
 
-        String sql ="SELECT (idjurnal, data, compleat, id_klient, id_master, id_product) FROM beauty_salon.jurnal;";
+        String sql ="SELECT (idjurnal, data, compleat, id_klient, id_master, id_product) FROM jurnal;";
         Statement statement =null;
         try {
             statement = connection.createStatement ();
@@ -56,13 +47,6 @@ public class JurnalService extends DataBaseConection implements JurnalDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace ();
-        } finally {
-            if(statement !=null){
-                statement.close ();
-            }
-            if (connection != null){
-                connection.close ();
-            }
         }
         return jurnalList;
     }
@@ -71,7 +55,7 @@ public class JurnalService extends DataBaseConection implements JurnalDAO {
     public Jurnal getAllById(Long id, Long klientId, Long masterId, Long productId) throws SQLException {
         PreparedStatement preparedStatement = null;
 
-        String sql ="SELECT (idjurnal, data, compleat, id_klient, id_master, id_product) FROM beauty_salon.jurnal WHERE idjurnal=? and id_klient=? and id_master=? and id_product=?;";
+        String sql ="SELECT (idjurnal, data, compleat, id_klient, id_master, id_product) FROM jurnal WHERE idjurnal=? and id_klient=? and id_master=? and id_product=?;";
 
         Jurnal jurnal = new Jurnal ();
         try {
@@ -93,11 +77,6 @@ public class JurnalService extends DataBaseConection implements JurnalDAO {
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
             e.printStackTrace ();
-        } if (preparedStatement !=null){
-            preparedStatement.close ();
-        }
-        if (connection != null){
-            connection.close ();
         }
         return jurnal;
     }
@@ -106,7 +85,7 @@ public class JurnalService extends DataBaseConection implements JurnalDAO {
     public void update(Jurnal jurnal) throws SQLException {
         PreparedStatement preparedStatement =null;
 
-        String sql ="UPDATE beauty_salon.jurnal SET idjurnal = ?, data = ?, compleat = ?, id_klient = ?, id_master = ?, id_product = ? WHERE (idjurnal = ?);";
+        String sql ="UPDATE jurnal SET idjurnal = ?, data = ?, compleat = ?, id_klient = ?, id_master = ?, id_product = ? WHERE (idjurnal = ?);";
         try {
             preparedStatement =connection.prepareStatement ( sql );
             preparedStatement.setLong ( 1,jurnal.getId ());
@@ -116,35 +95,19 @@ public class JurnalService extends DataBaseConection implements JurnalDAO {
             preparedStatement.setLong ( 5,jurnal.getMasterId ());
             preparedStatement.setLong ( 6,jurnal.getProductId ());
         }catch (SQLException e){e.printStackTrace ();}
-        finally {
-            if(preparedStatement !=null){
-                preparedStatement.close ();
-            }
-            if (connection != null){
-                connection.close ();
-            }
-        }
+
     }
 
     @Override
     public void remove(Jurnal jurnal) throws SQLException {
         PreparedStatement preparedStatement = null;
-
-        String sql ="DELETE * FROM beauty_salon.jurnal WHERE idjurnal=?;";
-
+        String sql ="DELETE * FROM jurnal WHERE idjurnal=?;";
         try {
             preparedStatement = connection.prepareStatement ( sql );
-
             preparedStatement.setLong ( 1,jurnal.getId () );
-
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
             e.printStackTrace ();
-        } if (preparedStatement !=null){
-            preparedStatement.close ();
-        }
-        if (connection != null){
-            connection.close ();
         }
     }
 }

@@ -1,4 +1,4 @@
-package main.java.service;
+package service;
 
 import db.DataBaseConection;
 import main.java.dao.SalonDAO;
@@ -16,7 +16,7 @@ public class SalonService extends DataBaseConection implements SalonDAO {
     public void add(Salon salon) throws SQLException {
         PreparedStatement preparedStatement = null;
 
-        String sql = "INSERT INTO beauty_salon.salon (id_salon, salon_name, adress, id_jurnal)  VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO salon (id_salon, salon_name, adress, id_jurnal)  VALUES (?, ?, ?, ?);";
         try {
             preparedStatement = connection.prepareStatement ( sql );
             preparedStatement.setLong ( 1, salon.getId () );
@@ -27,13 +27,6 @@ public class SalonService extends DataBaseConection implements SalonDAO {
 
         } catch (SQLException e) {
             e.printStackTrace ();
-        } finally {
-            if (preparedStatement != null) {
-                preparedStatement.close ();
-            }
-            if (connection != null) {
-                connection.close ();
-            }
         }
     }
 
@@ -56,13 +49,6 @@ public class SalonService extends DataBaseConection implements SalonDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace ();
-        } finally {
-            if(statement !=null){
-                statement.close ();
-            }
-            if (connection != null){
-                connection.close ();
-            }
         }
         return salonList;
     }
@@ -71,7 +57,7 @@ public class SalonService extends DataBaseConection implements SalonDAO {
     public Salon getAllById(Long id, Long jurnalId) throws SQLException {
         PreparedStatement preparedStatement = null;
 
-        String sql ="SELECT * FROM beauty_salon.salon WHERE id_salon and id_jurnal;";
+        String sql ="SELECT * FROM salon WHERE id_salon and id_jurnal;";
 
         Salon salon = new Salon ();
         try {
@@ -89,11 +75,6 @@ public class SalonService extends DataBaseConection implements SalonDAO {
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
             e.printStackTrace ();
-        } if (preparedStatement !=null){
-            preparedStatement.close ();
-        }
-        if (connection != null){
-            connection.close ();
         }
         return salon;
     }
@@ -102,7 +83,7 @@ public class SalonService extends DataBaseConection implements SalonDAO {
     public void update(Salon salon) throws SQLException {
         PreparedStatement preparedStatement =null;
 
-        String sql ="UPDATE beauty_salon.salon SET id_product = ?, product_name = ?, price = ?  WHERE (idjurnal = ?);";
+        String sql ="UPDATE salon SET id_product = ?, product_name = ?, price = ?  WHERE (idjurnal = ?);";
         try {
             preparedStatement =connection.prepareStatement ( sql );
             preparedStatement.setLong ( 1,salon.getId ());
@@ -111,21 +92,14 @@ public class SalonService extends DataBaseConection implements SalonDAO {
             preparedStatement.setLong ( 4,salon.getJurnalId ());
 
         }catch (SQLException e){e.printStackTrace ();}
-        finally {
-            if(preparedStatement !=null){
-                preparedStatement.close ();
-            }
-            if (connection != null){
-                connection.close ();
-            }
-        }
+
     }
 
     @Override
     public void remove(Salon salon) throws SQLException {
         PreparedStatement preparedStatement = null;
 
-        String sql ="DELETE * FROM beauty_salon.salon WHERE id_salon;";
+        String sql ="DELETE * FROM salon WHERE id_salon;";
 
         try {
             preparedStatement = connection.prepareStatement ( sql );
@@ -135,11 +109,6 @@ public class SalonService extends DataBaseConection implements SalonDAO {
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
             e.printStackTrace ();
-        } if (preparedStatement !=null){
-            preparedStatement.close ();
-        }
-        if (connection != null){
-            connection.close ();
         }
     }
 }

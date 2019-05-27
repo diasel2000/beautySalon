@@ -1,4 +1,4 @@
-package main.java.service;
+package service;
 
 import db.DataBaseConection;
 import main.java.dao.KlientDAO;
@@ -16,7 +16,7 @@ public class KlientService extends DataBaseConection implements KlientDAO {
     public void add(Klient klient) throws SQLException {
         PreparedStatement preparedStatement =null;
 
-        String sql ="INSERT INTO beauty_salon.klient (id_klient, first_name, last_name, age, gander) VALUES (?, ?, ?, ?, ?);";
+        String sql ="INSERT INTO klient (id_klient, first_name, last_name, age, gander) VALUES (?, ?, ?, ?, ?);";
         try {
             preparedStatement =connection.prepareStatement ( sql );
             preparedStatement.setLong ( 1,klient.getId ());
@@ -26,21 +26,14 @@ public class KlientService extends DataBaseConection implements KlientDAO {
             preparedStatement.setString ( 5,klient.getGander ());
 
         }catch (SQLException e){e.printStackTrace ();}
-        finally {
-            if(preparedStatement !=null){
-                preparedStatement.close ();
-            }
-            if (connection != null){
-                connection.close ();
-            }
-        }
+
     }
 
     @Override
     public List<Klient> getAll() throws SQLException {
         List<Klient> klientList = new ArrayList<> (  );
 
-        String sql ="SELECT * FROM beauty_salon.klient;";
+        String sql ="SELECT * FROM klient;";
         Statement statement =null;
         try {
             statement = connection.createStatement ();
@@ -56,13 +49,6 @@ public class KlientService extends DataBaseConection implements KlientDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace ();
-        } finally {
-            if(statement !=null){
-                statement.close ();
-            }
-            if (connection != null){
-                connection.close ();
-            }
         }
         return klientList;
 
@@ -72,7 +58,7 @@ public class KlientService extends DataBaseConection implements KlientDAO {
     public Klient getById(Long id) throws SQLException {
         PreparedStatement preparedStatement = null;
 
-        String sql ="SELECT * FROM beauty_salon.klient WHERE id_klient=?;";
+        String sql ="SELECT * FROM klient WHERE id_klient=?;";
 
         Klient klient = new Klient ();
         try {
@@ -90,11 +76,6 @@ public class KlientService extends DataBaseConection implements KlientDAO {
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
             e.printStackTrace ();
-        } if (preparedStatement !=null){
-            preparedStatement.close ();
-        }
-        if (connection != null){
-            connection.close ();
         }
         return klient;
     }
@@ -103,7 +84,7 @@ public class KlientService extends DataBaseConection implements KlientDAO {
     public void update(Klient klient) throws SQLException {
         PreparedStatement preparedStatement =null;
 
-        String sql ="UPDATE beauty_salon.klient SET id_klient = ?, first_name = ?, last_name = ?, age = ?, gander = ? WHERE (id_klient = ?);";
+        String sql ="UPDATE klient SET id_klient = ?, first_name = ?, last_name = ?, age = ?, gander = ? WHERE (id_klient = ?);";
         try {
             preparedStatement =connection.prepareStatement ( sql );
             preparedStatement.setLong ( 1,klient.getId ());
@@ -112,21 +93,13 @@ public class KlientService extends DataBaseConection implements KlientDAO {
             preparedStatement.setShort ( 4,klient.getAge ());
             preparedStatement.setString ( 5,klient.getGander ());
         }catch (SQLException e){e.printStackTrace ();}
-        finally {
-            if(preparedStatement !=null){
-                preparedStatement.close ();
-            }
-            if (connection != null){
-                connection.close ();
-            }
-        }
     }
 
     @Override
     public void remove(Klient klient) throws SQLException {
         PreparedStatement preparedStatement = null;
 
-        String sql ="DELETE FROM beauty_salon.klient WHERE (id_klient);";
+        String sql ="DELETE FROM klient WHERE (id_klient);";
 
         try {
             preparedStatement = connection.prepareStatement ( sql );
@@ -134,11 +107,6 @@ public class KlientService extends DataBaseConection implements KlientDAO {
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
             e.printStackTrace ();
-        } if (preparedStatement !=null){
-            preparedStatement.close ();
-        }
-        if (connection != null){
-            connection.close ();
         }
     }
 }
