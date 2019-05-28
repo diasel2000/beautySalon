@@ -17,9 +17,9 @@
 
 <jsp:include page="index.jsp"></jsp:include>
 
-<h3>Hello: ${loginedUser.userName}</h3>
+<h3>Hello: ${requestScope.login}</h3>
 
-<fmt:message key="userInfo" /> <b>${loginedUser.userName}</b>
+<fmt:message key="userInfo" /> <b>${requestScope.login}</b>
 ============
 
 

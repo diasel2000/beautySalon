@@ -1,6 +1,7 @@
 package controller;
 
 
+import org.apache.log4j.Logger;
 import service.UsersService;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,8 @@ import java.sql.SQLException;
 
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
+    private static final Logger LOG = Logger.getLogger ( RegistrationServlet.class );
+
     public RegistrationServlet() {
     }
 
@@ -40,10 +43,12 @@ public class RegistrationServlet extends HttpServlet {
         if (userRegister !=null)
         {
             request.getRequestDispatcher ( "/pages/index.jsp" ).forward ( request, response );
+            LOG.debug ("Registration compleat\n");
         } else
         {
             request.setAttribute ( "errMessage", userRegister );
             request.getRequestDispatcher ( "/pages/registration.jsp" ).forward ( request, response );
+            LOG.debug ("Registration error\n");
         }
 
     }

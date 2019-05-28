@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
+
     public LogoutServlet() {
         super();
     }
@@ -26,7 +27,7 @@ public class LogoutServlet extends HttpServlet {
                 request.setAttribute("errMessage", "You have logged out successfully");
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("/pages/loginPage.jsp");
                 requestDispatcher.forward(request, response);
-                System.out.println("Logged out");
+
             }
         }
 

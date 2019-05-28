@@ -4,13 +4,14 @@ import db.DataBaseConection;
 import main.java.dao.KlientDAO;
 
 import main.java.entity.Klient;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class KlientService extends DataBaseConection implements KlientDAO {
-
+    private static final Logger LOG = Logger.getLogger(KlientService.class);
     Connection connection = getConnection ();
     @Override
     public void add(Klient klient) throws SQLException {
@@ -25,7 +26,7 @@ public class KlientService extends DataBaseConection implements KlientDAO {
             preparedStatement.setShort ( 4,klient.getAge ());
             preparedStatement.setString ( 5,klient.getGander ());
 
-        }catch (SQLException e){e.printStackTrace ();}
+        }catch (SQLException e){LOG.error("Some problem with add client \n" + e);}
 
     }
 
@@ -48,7 +49,7 @@ public class KlientService extends DataBaseConection implements KlientDAO {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace ();
+            LOG.error("Some problem with DB get in client \n" + e);
         }
         return klientList;
 
@@ -75,7 +76,7 @@ public class KlientService extends DataBaseConection implements KlientDAO {
 
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
-            e.printStackTrace ();
+            LOG.error("Some problem with ID by client \n" + e);
         }
         return klient;
     }
@@ -92,7 +93,7 @@ public class KlientService extends DataBaseConection implements KlientDAO {
             preparedStatement.setString ( 3,klient.getLastName ());
             preparedStatement.setShort ( 4,klient.getAge ());
             preparedStatement.setString ( 5,klient.getGander ());
-        }catch (SQLException e){e.printStackTrace ();}
+        }catch (SQLException e){LOG.error("Some problem update client \n" + e);}
     }
 
     @Override
@@ -106,7 +107,7 @@ public class KlientService extends DataBaseConection implements KlientDAO {
             preparedStatement.setLong ( 1,klient.getId () );
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
-            e.printStackTrace ();
+            LOG.error("Some problem with connection to DB \n" + e);
         }
     }
 }

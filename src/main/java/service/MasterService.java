@@ -4,6 +4,7 @@ import db.DataBaseConection;
 import main.java.dao.MasterDAO;
 
 import main.java.entity.Master;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.concurrent.Executor;
 
 public class MasterService extends DataBaseConection implements MasterDAO {
     Connection connection = getConnection ();
-
+    private static final Logger LOG = Logger.getLogger(MasterService.class);
     @Override
     public void add(Master master) throws SQLException {
         PreparedStatement preparedStatement = null;
@@ -28,7 +29,7 @@ public class MasterService extends DataBaseConection implements MasterDAO {
             preparedStatement.setInt ( 4, master.getPhoneNumber () );
 
         } catch (SQLException e) {
-            e.printStackTrace ();
+            LOG.error("Some problem with master add \n" + e);
         }
     }
 
@@ -49,7 +50,7 @@ public class MasterService extends DataBaseConection implements MasterDAO {
                 master.setPhoneNumber ( resultSet.getInt ( "phone_number" ) );
             }
         } catch (SQLException e) {
-            e.printStackTrace ();
+            LOG.error("Some problem with masters \n" + e);
         }
         return mastersList;
     }
@@ -72,15 +73,8 @@ public class MasterService extends DataBaseConection implements MasterDAO {
             master.setPhoneNumber ( resultSet.getInt ( "phone_number" ) );
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
-            e.printStackTrace ();
-        }
-        if (preparedStatement != null) {
-            preparedStatement.close ();
-        }
-        if (connection != null) {
-            connection.close ();
-        }
-        return master;
+            LOG.error("Some problem in master \n" + e);
+        }return master;
     }
 
     @Override
@@ -95,7 +89,7 @@ public class MasterService extends DataBaseConection implements MasterDAO {
             preparedStatement.setString ( 3, master.getLastName () );
             preparedStatement.setInt ( 4, master.getPhoneNumber () );
 
-        }catch (SQLException e){e.printStackTrace ();}
+        }catch (SQLException e){LOG.error("Some problem with master update to DB \n" + e);}
 
     }
 
@@ -112,7 +106,7 @@ public class MasterService extends DataBaseConection implements MasterDAO {
 
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
-            e.printStackTrace ();
+            LOG.error("Some problem with connection to DB \n" + e);
         }
     }
 }

@@ -3,32 +3,15 @@ package service;
 import db.DataBaseConection;
 import main.java.dao.PrductDAO;
 import main.java.entity.Product;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public  class ProductService extends DataBaseConection implements PrductDAO {
-     Connection connection = getConnection ();
-
-    public  List<Product> getAllById() throws SQLException {
-        List<Product> productList = new ArrayList<> (  );
-
-        String sql ="SELECT * FROM product;";
-        Statement statement =null;
-        try {
-            statement = connection.createStatement ();
-            ResultSet resultSet = statement.executeQuery ( sql );
-            while (resultSet.next ()){
-                Product product =new Product ();
-                product.setProductName ( resultSet.getString ( "product_name" ) );
-                product.setPrice ( resultSet.getFloat ( "price" ) );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace ();
-        }
-        return productList;
-    }
+    private static final Logger LOG = Logger.getLogger(ProductService.class);
+    Connection connection = getConnection ();
 
     @Override
     public void add(Product product) throws SQLException {
@@ -41,7 +24,7 @@ public  class ProductService extends DataBaseConection implements PrductDAO {
             preparedStatement.setString ( 1,product.getProductName ());
             preparedStatement.setFloat ( 2,product.getPrice ());
 
-        }catch (SQLException e){e.printStackTrace ();}
+        }catch (SQLException e){LOG.error("Some problem with product add \n" + e);}
 
     }
 
@@ -60,7 +43,7 @@ public  class ProductService extends DataBaseConection implements PrductDAO {
                 product.setPrice ( resultSet.getFloat ( "price" ) );
             }
         } catch (SQLException e) {
-            e.printStackTrace ();
+            LOG.error("Some problem with products get \n" + e);
         }
         return productList;
     }
@@ -83,7 +66,7 @@ public  class ProductService extends DataBaseConection implements PrductDAO {
 
            int i= preparedStatement.executeUpdate ();
         } catch (SQLException e) {
-            e.printStackTrace ();
+            LOG.error("Some problem with product ID  \n" + e);
         }
         return product;
     }
@@ -98,8 +81,7 @@ public  class ProductService extends DataBaseConection implements PrductDAO {
             preparedStatement.setLong ( 1,product.getId ());
             preparedStatement.setString ( 2,product.getProductName ());
             preparedStatement.setFloat ( 3,product.getPrice ());
-        }catch (SQLException e){e.printStackTrace ();}
-
+        }catch (SQLException e){LOG.error("Some problem with update in product \n" + e);}
     }
 
     @Override
@@ -115,7 +97,7 @@ public  class ProductService extends DataBaseConection implements PrductDAO {
 
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
-            e.printStackTrace ();
+            LOG.error("Some problem with delate product \n" + e);
         }
     }
 }

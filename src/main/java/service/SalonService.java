@@ -4,12 +4,15 @@ import db.DataBaseConection;
 import main.java.dao.SalonDAO;
 import main.java.entity.Master;
 import main.java.entity.Salon;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SalonService extends DataBaseConection implements SalonDAO {
+    private static final Logger LOG = Logger.getLogger(DataBaseConection.class);
+
     Connection connection = getConnection ();
 
     @Override
@@ -26,7 +29,7 @@ public class SalonService extends DataBaseConection implements SalonDAO {
 
 
         } catch (SQLException e) {
-            e.printStackTrace ();
+            LOG.error("Some problem salon add\n" + e);
         }
     }
 
@@ -48,7 +51,7 @@ public class SalonService extends DataBaseConection implements SalonDAO {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace ();
+            LOG.error("Some problem in salon \n" + e);
         }
         return salonList;
     }
@@ -74,7 +77,7 @@ public class SalonService extends DataBaseConection implements SalonDAO {
 
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
-            e.printStackTrace ();
+            LOG.error("Some problem in master ID \n" + e);
         }
         return salon;
     }
@@ -91,7 +94,7 @@ public class SalonService extends DataBaseConection implements SalonDAO {
             preparedStatement.setString ( 3,salon.getAdress ());
             preparedStatement.setLong ( 4,salon.getJurnalId ());
 
-        }catch (SQLException e){e.printStackTrace ();}
+        }catch (SQLException e){LOG.error("Some problem with connection update salon \n" + e);}
 
     }
 
@@ -108,7 +111,7 @@ public class SalonService extends DataBaseConection implements SalonDAO {
 
             preparedStatement.executeUpdate ();
         } catch (SQLException e) {
-            e.printStackTrace ();
+            LOG.error("Delate error in salon \n" + e);
         }
     }
 }

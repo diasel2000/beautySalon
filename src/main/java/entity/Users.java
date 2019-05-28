@@ -1,5 +1,7 @@
 package main.java.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Users {
@@ -7,6 +9,22 @@ public class Users {
     private String login;
     private String password;
 
+    private List<String> roles;
+
+    public Users() {
+    }
+
+    public Users(String login, String password, String... roles) {
+        this.login = login;
+        this.password = password;
+
+        this.roles = new ArrayList<String> ();
+        if (roles != null) {
+            for (String r : roles) {
+                this.roles.add(r);
+            }
+        }
+    }
 
     public Long getId() {
         return id;
@@ -30,6 +48,14 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
     @Override

@@ -39,7 +39,7 @@
 
 
 </form>
-<p style="color:blue;"><fmt:message key="login" />:</p>
+<p style="color:blue;"><fmt:message key="login" />: ${requestScope.login}</p>
 
 </body>
 </html>
