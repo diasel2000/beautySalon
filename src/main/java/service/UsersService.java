@@ -33,37 +33,42 @@ public class UsersService extends DataBaseConection implements UsersDAO {
     @Override
     public String getUser(Users users) {
         String login = users.getLogin ();
-        String password = users.getPassword();
+        String password = users.getPassword ();
 
         Connection con = null;
-        Statement statement = null;
         ResultSet resultSet = null;
 
-        String loginDB = "";
+        String userNameDB = "";
         String passwordDB = "";
 
+        PreparedStatement preparedStatement = null;
+
+        String sql ="select login,password from users where login=? and password=?";
         try
         {
             con = DataBaseConection.getConnection ();
-            statement = con.createStatement ();
-            String sql = "SELECT login,password FROM beauty_salon.users;";
-            resultSet = statement.executeQuery(sql);
+            resultSet = preparedStatement.executeQuery(sql);
+            preparedStatement = con.prepareStatement ( sql );
+            preparedStatement.setString ( 1, login );
+            preparedStatement.setString ( 2, password );
+
             while(resultSet.next())
             {
-                loginDB = resultSet.getString("login");
+                userNameDB = resultSet.getString("login");
                 passwordDB = resultSet.getString("password");
 
-                if(login.equals(loginDB) && password.equals(passwordDB))
+                if(login.equals(userNameDB) && password.equals(passwordDB))
                 {
                     return "SUCCESS";
                 }
             }
+        } catch(SQLException e)
+            {
+                e.printStackTrace();
+            }
             return "Invalid user credentials";
-        } catch (SQLException e) {
-            e.printStackTrace ();
         }
-        return null;
-    }
+
 
     @Override
     public Users getAllById(Long id) {return null;

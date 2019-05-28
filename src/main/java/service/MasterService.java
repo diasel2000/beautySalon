@@ -50,13 +50,6 @@ public class MasterService extends DataBaseConection implements MasterDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace ();
-        } finally {
-            if (statement != null) {
-                statement.close ();
-            }
-            if (connection != null) {
-                connection.close ();
-            }
         }
         return mastersList;
     }

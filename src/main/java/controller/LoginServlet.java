@@ -32,11 +32,11 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String login = request.getParameter("login");
-        String password = request.getParameter("password");
+        String password = request.getParameter ( "password" );
 
         Users users = new Users ();
         users.setLogin (login);
-        users.setPassword(password);
+        users.setPassword ( password );
 
         UsersService usersService = new UsersService ();
 

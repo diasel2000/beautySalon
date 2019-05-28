@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${locale}"/>
-<fmt:setBundle basename="${bundle}"/>
+<fmt:setLocale value="${param.lang}"/>
+<fmt:setBundle basename="lang"/>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -19,7 +19,7 @@
 
 <h3>Hello: ${loginedUser.userName}</h3>
 
-User Name: <b>${loginedUser.userName}</b>
+<fmt:message key="userInfo" /> <b>${loginedUser.userName}</b>
 ============
 
 

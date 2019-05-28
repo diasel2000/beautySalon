@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false"%>
 
-<fmt:setLocale value="${locale}"/>
-<fmt:setBundle basename="${bundle}"/>
-<html>
+<fmt:setLocale value="${param.lang}" />
+<fmt:setBundle basename="lang"/>
+
+<html lang="${param.lang}">
 <body>
 
 <header>
@@ -43,7 +45,14 @@
                 </a></li>
             </ul>
         </li>
+        <li><a href=""><fmt:message key="language" /></a>
+            <ul class="submenu">
+                <li><a href="?lang=en"><fmt:message key="lang_en" /></a></li>
+                <li><a href="?lang=ru"><fmt:message key="ru" /></a></li>
+            </ul>
+        </li>
     </ul>
+
 </nav>
 
 </header>

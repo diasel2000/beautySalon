@@ -2,6 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${param.lang}"/>
+<fmt:setBundle basename="lang"/>
 <html>
 <head>
     <style>
@@ -14,9 +17,9 @@
 
 <jsp:include page="index.jsp"></jsp:include>
 
-<h3><fmt:message key="adminPage.panel" /></h3>
+<h3><fmt:message key="adminPagePpanel" /></h3>
 
-Hello, This is a protected page!
+<fmt:message key="protected" />
 
 </body>
 </html>

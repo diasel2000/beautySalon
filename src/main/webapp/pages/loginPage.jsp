@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${locale}"/>
-<fmt:setBundle basename="${bundle}"/>
+<fmt:setLocale value="${param.lang}"/>
+<fmt:setBundle basename="lang"/>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -27,19 +27,19 @@
     <input type="hidden" name="redirectId" value="${param.redirectId}" />
         <div class="form-row">
             <fmt:message key="login" />
-            <input type="text" name="login" id="login" value= "${users.login}" />
+            <input type="text" name="login" id="login" value= "${requestScope.login}" />
         </div>
         <div class="form-row">
             <fmt:message key="password" />
-            <input type="password" name="password" id="password" value= "${users.password}" />
+            <input type="password" name="password" id="password" value= "${requestScope.password}" />
         </div>
 
                 <p>  <input type="submit" value= "<fmt:message key="submit" />" /><p>
-                <a href="${pageContext.request.contextPath}/">Cancel</a>
+                <a href="${pageContext.request.contextPath}/"><fmt:message key="cancel" /></a>
 
 
 </form>
-<p style="color:blue;">Login with:</p>
+<p style="color:blue;"><fmt:message key="login" />:</p>
 
 </body>
 </html>

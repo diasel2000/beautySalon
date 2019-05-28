@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${locale}"/>
-<fmt:setBundle basename="${bundle}"/>
+<fmt:setLocale value="${param.lang}"/>
+<fmt:setBundle basename="lang"/>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -20,7 +20,7 @@
 
 <h3><fmt:message key="masterPanel" /></h3>
 
-Hello, This is a protected page!
+<fmt:message key="protected" />
 
 </body>
 </html>
